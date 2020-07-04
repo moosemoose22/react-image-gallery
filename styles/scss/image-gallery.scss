@@ -171,7 +171,7 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
   }
 }
 
-.image-gallery-slide-wrapper {
+.image-gallery-slide-wrapper_horizontal {
   position: relative;
 
   &.left,
@@ -181,6 +181,23 @@ $ig-transparent: rgba(0, 0, 0, 0) !default;
 
     @media (max-width: $ig-small-screen) {
       width: calc(100% - 87px); // 81px + 6px for margin
+    }
+  }
+  &.image-gallery-rtl {
+    direction: rtl;
+  }
+}
+
+.image-gallery-slide-wrapper_vertical {
+  position: relative;
+
+  &.left,
+  &.right {
+    display: inline-block;
+    height: calc(100% - 110px); // 100px + 10px for margin
+
+    @media (max-width: $ig-small-screen) {
+      height: calc(100% - 87px); // 81px + 6px for margin
     }
   }
   &.image-gallery-rtl {

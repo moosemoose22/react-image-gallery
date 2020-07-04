@@ -58,6 +58,7 @@ export default class ImageGallery extends React.Component {
       imageSet: imageSetType,
       srcSet: string,
       sizes: string,
+      vertical: bool,
     })).isRequired,
     showNav: bool,
     autoPlay: bool,
@@ -1368,8 +1369,9 @@ export default class ImageGallery extends React.Component {
 
     const thumbnailStyle = this.getThumbnailStyle();
     const { slides, thumbnails, bullets } = this.getSlideItems();
+    const thumbClassWrap = item.vertical ? 'image-gallery-slide-wrapper_vertical' : 'image-gallery-slide-wrapper_horizontal';
     const slideWrapperClass = clsx(
-      'image-gallery-slide-wrapper',
+      thumbClassWrap,
       thumbnailPosition,
       { 'image-gallery-rtl': isRTL },
     );
