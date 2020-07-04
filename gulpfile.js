@@ -1,4 +1,4 @@
-const babel = require('gulp-babel');
+const babel = require('@babel/core');
 const browserify = require('browserify');
 const concat = require('gulp-concat');
 const connect = require('gulp-connect');
@@ -70,23 +70,23 @@ gulp.task('demo-src', () => {
 gulp.task('source-js', () => (
   gulp.src('./src/ImageGallery.jsx')
     .pipe(concat('image-gallery.js'))
-    .pipe(babel(babelOptions))
+    .pipe(babel.transform("code", babelOptions))
     .pipe(gulp.dest('./build'))
 ));
 
 gulp.task('svg-js', () => (
   gulp.src('./src/SVG.jsx')
     .pipe(concat('SVG.js'))
-    .pipe(babel(babelOptions))
+    .pipe(babel.transform("code", babelOptions))
     .pipe(gulp.dest('./build'))
 ));
 
 gulp.task('watch', () => {
   livereload.listen();
-  gulp.watch(['styles/**/*.scss'], ['sass']);
-  gulp.watch(['src/*.jsx', 'src/icons/*.jsx', 'example/app.js'], ['scripts']);
+  gulp.watch('styles/**/*.scss', gulp.series('sass'));
+  gulp.watch(['src/*.jsx', 'src/icons/*.jsx', 'example/app.js'], gulp.series('scripts'));
 });
 
-gulp.task('dev', ['watch', 'scripts', 'sass', 'server']);
-gulp.task('build', ['source-js', 'svg-js', 'sass']);
-gulp.task('demo', ['demo-src']);
+gulp.task('dev', gulp.parallel('watch', 'scripts', 'sass', 'server'));
+gulp.task('build', gulp.parallel('source-js', 'svg-js', 'sass'));
+gulp.task('demo', gulp.parallel('demo-src'));
